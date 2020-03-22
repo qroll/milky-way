@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 import Star from "./images/Star";
 import { CenteredFlexColumn } from "./containers/Flex";
+import { Button } from "./buttons";
 
 const Page = styled(CenteredFlexColumn)`
   width: 100%;
@@ -18,7 +19,7 @@ const Header = styled(Star)`
 
 const Title = styled.div`
   cursor: default;
-  font-family: ${props => props.theme.font.fancy};
+  font-family: ${({ theme }) => theme.font.fancy};
   font-size: 2rem;
 `;
 
@@ -28,6 +29,7 @@ class Main extends React.Component {
       <Page>
         <Header />
         <Title>things i like</Title>
+        <Button marginTop={5}>log in</Button>
       </Page>
     );
   }
