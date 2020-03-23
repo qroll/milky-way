@@ -7,6 +7,7 @@ import { StyledSystemProps } from "../types";
 
 const buttonStyle = css`
   background-color: ${({ theme }) => theme.colors.black};
+  border: 1px solid transparent;
   color: ${({ theme }) => theme.colors.white};
   font-size: ${({ theme }) => theme.fontSizes[1]}px;
   padding-left: ${({ theme }) => theme.space[3]}px;

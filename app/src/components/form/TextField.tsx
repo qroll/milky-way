@@ -1,7 +1,6 @@
 import React, { useCallback } from "react";
-import styled, { css } from "styled-components";
-import { color, layout, space } from "styled-system";
-import { StyledSystemProps } from "../types";
+import styled from "styled-components";
+import { layout, space } from "styled-system";
 import { Modify } from "../../utils/utilityTypes";
 
 const StyledInput = styled.input`
@@ -9,11 +8,24 @@ const StyledInput = styled.input`
   color: #000;
   padding: 0.5rem;
   margin-top: ${({ theme }) => theme.space[3]}px;
+  transition: all 0.3s ease;
 
   &::selection {
     background: #ef4d9b;
     color: #000;
   }
+
+  &:disabled {
+    background-color: ${({ theme }) => theme.colors.gray[1]};
+    font-style: italic;
+  }
+
+  &:disabled::placeholder {
+    color: ${({ theme }) => theme.colors.gray[2]};
+  }
+
+  ${layout}
+  ${space}
 `;
 
 export interface TextFieldProps
