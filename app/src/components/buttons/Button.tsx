@@ -12,7 +12,7 @@ const buttonStyle = css`
   padding-top: ${({ theme }) => theme.space[2]}px;
   padding-bottom: ${({ theme }) => theme.space[2]}px;
   outline: none;
-  transition: all 0.5s ease, background-color 0.5s ease, color 0.1s ease;
+  transition: all 0.3s ease, color 0.1s ease;
 
   &:hover {
     background-color: #ffffff;
