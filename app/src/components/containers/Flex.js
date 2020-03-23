@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { flexbox } from "styled-system";
+import { flexbox, layout, space } from "styled-system";
 
 export const FlexColumn = styled.div`
   align-items: flex-start;
@@ -7,6 +7,8 @@ export const FlexColumn = styled.div`
   flex-direction: column;
   justify-content: flex-start;
   ${flexbox}
+  ${layout}
+  ${space}
 `;
 
 export const CenteredFlexColumn = styled.div`
@@ -15,6 +17,8 @@ export const CenteredFlexColumn = styled.div`
   flex-direction: column;
   justify-content: center;
   ${flexbox}
+  ${layout}
+  ${space}
 `;
 
 export const FlexRow = styled.div`
@@ -23,6 +27,8 @@ export const FlexRow = styled.div`
   flex-direction: row;
   justify-content: flex-start;
   ${flexbox}
+  ${layout}
+  ${space}
 `;
 
 export const CenteredFlexRow = styled.div`
@@ -31,4 +37,6 @@ export const CenteredFlexRow = styled.div`
   flex-direction: row;
   justify-content: center;
   ${flexbox}
+  ${layout}
+  ${space}
 `;

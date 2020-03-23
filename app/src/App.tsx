@@ -1,15 +1,20 @@
 import React from "react";
-import Layout from "./components/Layout";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import Main from "./components/Main";
+
+import Layout from "./pages/Layout";
+import Main from "./pages/Main";
+import Login from "./pages/Login";
 
 function App() {
   return (
     <Layout>
       <Router>
         <Switch>
-          <Route path="/">
+          <Route path="/" exact>
             <Main />
+          </Route>
+          <Route path="/login" exact>
+            <Login />
           </Route>
         </Switch>
       </Router>

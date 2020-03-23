@@ -1,9 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 
-import Star from "./images/Star";
-import { CenteredFlexColumn } from "./containers/Flex";
-import { Button } from "./buttons";
+import Star from "../components/images/Star";
+import { CenteredFlexColumn } from "../components/containers/Flex";
+import { Button } from "../components/buttons";
 
 const Page = styled(CenteredFlexColumn)`
   width: 100%;
@@ -29,7 +29,9 @@ class Main extends React.Component {
       <Page>
         <Header />
         <Title>things i like</Title>
-        <Button marginTop={5}>log in</Button>
+        <Button marginTop={5} to="/login">
+          log in
+        </Button>
       </Page>
     );
   }

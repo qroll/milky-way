@@ -1,6 +1,8 @@
 import React from "react";
 import styled, { css } from "styled-components";
 import { color, layout, space } from "styled-system";
+import { Link } from "react-router-dom";
+
 import { StyledSystemProps } from "../types";
 
 const buttonStyle = css`
@@ -15,8 +17,7 @@ const buttonStyle = css`
   transition: all 0.3s ease, color 0.1s ease;
 
   &:hover {
-    background-color: #ffffff;
-    color: ${({ theme }) => theme.colors.black};
+    border: 1px solid ${({ theme }) => theme.colors.white};
     transform: scale(1.1, 1.1);
   }
   
@@ -30,6 +31,10 @@ const StyledButton = styled.button`
 `;
 
 const StyledAnchor = styled.a`
+  ${buttonStyle}
+`;
+
+const StyledLink = styled(Link)`
   ${buttonStyle}
 `;
 
@@ -49,6 +54,9 @@ export const Button: React.FunctionComponent<StyledSystemProps &
         {children}
       </StyledAnchor>
     );
+  }
+  if (to) {
+    return <StyledLink to={to}>{children}</StyledLink>;
   }
   return (
     <StyledButton onClick={onClick} {...passthroughProps}>
