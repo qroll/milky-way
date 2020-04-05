@@ -5,3 +5,9 @@ export const DatabaseConfig = {
   password: process.env.DB_PASSWORD,
   database: process.env.DB_DATABASE,
 };
+
+export const CookieConfig = {
+  url: 'localhost',
+  secret: 'very very secret',
+  name: 'session',
+};

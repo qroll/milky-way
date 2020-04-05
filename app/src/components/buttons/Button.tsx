@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import styled, { css } from "styled-components";
 import { color, layout, space } from "styled-system";
 import { Link } from "react-router-dom";
@@ -43,24 +43,48 @@ export interface ButtonProps {
   children: React.ReactNode;
   href?: string;
   to?: string;
-  onClick?: () => void;
+  onClick?: (e?: React.MouseEvent) => void;
+  passOnClickEvent?: boolean;
 }
 
 export const Button: React.FunctionComponent<StyledSystemProps &
   ButtonProps> = props => {
-  const { children, href, to, onClick, ...passthroughProps } = props;
+  const {
+    children,
+    href,
+    to,
+    onClick,
+    passOnClickEvent,
+    ...passthroughProps
+  } = props;
+
+  const handleOnClick = useCallback(
+    (e: React.MouseEvent) => {
+      if (passOnClickEvent) {
+        return onClick?.(e);
+      }
+      e.preventDefault();
+      onClick?.();
+    },
+    [onClick, passOnClickEvent]
+  );
+
   if (href) {
     return (
-      <StyledAnchor href={href} onClick={onClick}>
+      <StyledAnchor href={href} onClick={handleOnClick} {...passthroughProps}>
         {children}
       </StyledAnchor>
     );
   }
   if (to) {
-    return <StyledLink to={to}>{children}</StyledLink>;
+    return (
+      <StyledLink to={to} {...passthroughProps}>
+        {children}
+      </StyledLink>
+    );
   }
   return (
-    <StyledButton onClick={onClick} {...passthroughProps}>
+    <StyledButton onClick={handleOnClick} {...passthroughProps}>
       {children}
     </StyledButton>
   );

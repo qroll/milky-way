@@ -11,4 +11,8 @@ export class UsersService {
   async findOne(username: string): Promise<User | undefined> {
     return this.connection.manager.findOne(User, { username });
   }
+
+  async create(username: string, password: string) {
+    return this.connection.manager.create(User, { username, password });
+  }
 }

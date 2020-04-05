@@ -6,3 +6,8 @@ body {
   color: #fff;
   font: 16px/1.4 "Helvetica Neue", sans-serif;
 }
+
+*::selection {
+  background: #ef4d9b;
+  color: #000;
+}

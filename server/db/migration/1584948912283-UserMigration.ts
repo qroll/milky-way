@@ -6,7 +6,8 @@ export class UserMigration implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(
       `CREATE TABLE "user" (
-        "id" SERIAL NOT NULL, "username" character varying NOT NULL, 
+        "id" SERIAL NOT NULL, 
+        "username" character varying NOT NULL, 
         "password" character varying NOT NULL, 
         "isDeleted" boolean NOT NULL DEFAULT false, 
         CONSTRAINT "PK_cace4a159ff9f2512dd42373760" PRIMARY KEY ("id"))

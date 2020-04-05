@@ -1,16 +1,18 @@
-import React from "react";
+import React, { useCallback, useState } from "react";
 import styled from "styled-components";
 import { CSSTransition } from "react-transition-group";
 
 import { CenteredFlexColumn } from "../components/containers/Flex";
 import { Button } from "../components/buttons";
 import { TextField } from "../components/form";
+import { AuthService } from "../services/AuthService";
+import { useHistory } from "react-router-dom";
 
 const Page = styled(CenteredFlexColumn)`
   width: 100%;
 `;
 
-const Item = styled(CenteredFlexColumn)`
+const Item = styled(CenteredFlexColumn).attrs({ as: "form" })`
   bottom: 0;
   left: 0;
   position: absolute;
@@ -52,106 +54,121 @@ const PageItem: React.FunctionComponent<{ visible: boolean }> = props => {
   );
 };
 
-class LoginAsExistingUser extends React.Component<{
+const LoginAsExistingUser: React.FunctionComponent<{
   onNewUser: () => void;
   visible: boolean;
-}> {
-  state = {
-    username: "",
-    password: ""
-  };
+}> = props => {
+  const { onNewUser, visible } = props;
 
-  render() {
-    const { username, password } = this.state;
-    const { onNewUser, visible } = this.props;
-    return (
-      <PageItem visible={visible}>
-        <TextField
-          label="username"
-          value={username}
-          placeholder="username"
-          onChange={this.onUsernameChange}
-        />
-        <TextField
-          label="password"
-          value={password}
-          placeholder="password"
-          onChange={this.onPasswordChange}
-          type="password"
-        />
-        <Button marginTop={5} onClick={this.onClick}>
-          submit
-        </Button>
-        <Button marginTop={5} onClick={onNewUser}>
-          new user?
-        </Button>
-      </PageItem>
-    );
-  }
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
 
-  onUsernameChange = (username: string) => this.setState({ username });
-  onPasswordChange = (password: string) => this.setState({ password });
+  const history = useHistory();
 
-  onClick = () => {
-    // do something
-  };
-}
+  const onUsernameChange = useCallback(
+    (username: string) => setUsername(username),
+    []
+  );
+  const onPasswordChange = useCallback(
+    (password: string) => setPassword(password),
+    []
+  );
 
-class LoginAsNewUser extends React.Component<{
+  const onSubmit = useCallback(() => {
+    AuthService.login(username, password)
+      .then(() => history.push("/"))
+      .catch(() => {});
+  }, [username, password, history]);
+
+  return (
+    <PageItem visible={visible}>
+      <TextField
+        label="username"
+        value={username}
+        placeholder="username"
+        autoComplete="username"
+        onChange={onUsernameChange}
+      />
+      <TextField
+        label="password"
+        value={password}
+        placeholder="password"
+        autoComplete="current-password"
+        onChange={onPasswordChange}
+        type="password"
+      />
+      <Button marginTop={5} onClick={onSubmit}>
+        submit
+      </Button>
+      <Button marginTop={5} onClick={onNewUser}>
+        new user?
+      </Button>
+    </PageItem>
+  );
+};
+
+const LoginAsNewUser: React.FunctionComponent<{
   onExistingUser: () => void;
   visible: boolean;
-}> {
-  state = {
-    username: "",
-    password: "",
-    confirmPassword: ""
-  };
+}> = props => {
+  const { onExistingUser, visible } = props;
 
-  render() {
-    const { username, password, confirmPassword } = this.state;
-    const { onExistingUser, visible } = this.props;
-    return (
-      <PageItem visible={visible}>
-        <TextField
-          label="username"
-          value={username}
-          placeholder="username"
-          onChange={this.onUsernameChange}
-        />
-        <TextField
-          label="password"
-          value={password}
-          placeholder="password"
-          onChange={this.onPasswordChange}
-          type="password"
-        />
-        <TextField
-          label="password2"
-          value={confirmPassword}
-          placeholder="confirm password"
-          onChange={this.onConfirmPasswordChange}
-          type="password"
-          disabled={!password}
-        />
-        <Button marginTop={5} onClick={this.onClick}>
-          sign up
-        </Button>
-        <Button marginTop={5} onClick={onExistingUser}>
-          existing user?
-        </Button>
-      </PageItem>
-    );
-  }
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
 
-  onUsernameChange = (username: string) => this.setState({ username });
-  onPasswordChange = (password: string) => this.setState({ password });
-  onConfirmPasswordChange = (confirmPassword: string) =>
-    this.setState({ confirmPassword });
+  const onUsernameChange = useCallback(
+    (username: string) => setUsername(username),
+    []
+  );
+  const onPasswordChange = useCallback(
+    (password: string) => setPassword(password),
+    []
+  );
+  const onConfirmPasswordChange = useCallback(
+    (password: string) => setConfirmPassword(password),
+    []
+  );
 
-  onClick = () => {
+  const onSubmit = useCallback(() => {
     // do something
-  };
-}
+  }, []);
+
+  return (
+    <PageItem visible={visible}>
+      <TextField
+        label="username"
+        value={username}
+        placeholder="username"
+        autoComplete="username"
+        onChange={onUsernameChange}
+      />
+      <TextField
+        label="password"
+        value={password}
+        placeholder="password"
+        autoComplete="new-password"
+        onChange={onPasswordChange}
+        type="password"
+      />
+      <TextField
+        label="password2"
+        value={confirmPassword}
+        placeholder="confirm password"
+        autoComplete="off"
+        onChange={onConfirmPasswordChange}
+        type="password"
+        disabled={!password}
+      />
+      <Button marginTop={5} onClick={onSubmit}>
+        sign up
+      </Button>
+      <Button marginTop={5} onClick={onExistingUser}>
+        existing user?
+      </Button>
+    </PageItem>
+  );
+};
 
 class Login extends React.Component {
   state = {
