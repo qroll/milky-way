@@ -34,7 +34,7 @@ export interface TextFieldProps
     {
       as?: undefined; // disable 'as'
       ref?: React.Ref<HTMLInputElement>; // fix legacy string ref issue
-      label: string;
+      label?: string;
       value: string;
       onChange?: (value: string) => void;
     }

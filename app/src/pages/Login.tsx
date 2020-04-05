@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useState, useContext } from "react";
 import styled from "styled-components";
 import { CSSTransition } from "react-transition-group";
 
@@ -7,6 +7,7 @@ import { Button } from "../components/buttons";
 import { TextField } from "../components/form";
 import { AuthService } from "../services/AuthService";
 import { useHistory } from "react-router-dom";
+import { UserContext } from "./UserContext";
 
 const Page = styled(CenteredFlexColumn)`
   width: 100%;
@@ -63,6 +64,8 @@ const LoginAsExistingUser: React.FunctionComponent<{
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
+  const userContext = useContext(UserContext);
+
   const history = useHistory();
 
   const onUsernameChange = useCallback(
@@ -76,9 +79,12 @@ const LoginAsExistingUser: React.FunctionComponent<{
 
   const onSubmit = useCallback(() => {
     AuthService.login(username, password)
-      .then(() => history.push("/"))
+      .then(user => {
+        userContext.setUser(user);
+        history.push("/main");
+      })
       .catch(() => {});
-  }, [username, password, history]);
+  }, [username, password, history, userContext]);
 
   return (
     <PageItem visible={visible}>

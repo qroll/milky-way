@@ -1,8 +1,8 @@
 import { ErrorFactory } from "./HttpError";
 
 export class BaseService {
-  static get(url: string) {
-    return this.wrapper(url, {
+  static get<T>(url: string) {
+    return this.wrapper<T>(url, {
       method: "GET",
       credentials: "include",
       headers: {
@@ -28,7 +28,7 @@ export class BaseService {
 
     let returnValue;
 
-    if (contentType === "application/json") {
+    if (contentType && contentType.startsWith("application/json")) {
       returnValue = await response.json();
     } else if (contentType && contentType.startsWith("text/")) {
       returnValue = await response.text();
