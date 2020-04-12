@@ -1,4 +1,4 @@
-import React, { useCallback, useState, useContext } from "react";
+import React, { useCallback, useState, useContext, useEffect } from "react";
 import styled from "styled-components";
 import { CSSTransition } from "react-transition-group";
 
@@ -8,6 +8,7 @@ import { TextField } from "../components/form";
 import { AuthService } from "../services/AuthService";
 import { useHistory } from "react-router-dom";
 import { UserContext } from "./UserContext";
+import { HeaderContext, HeaderMode } from "./Header";
 
 const Page = styled(CenteredFlexColumn)`
   width: 100%;
@@ -172,30 +173,21 @@ const LoginAsNewUser: React.FunctionComponent<{
   );
 };
 
-class Login extends React.Component {
-  state = {
-    current: 0,
-  };
+const LoginPage: React.FunctionComponent<{}> = (props) => {
+  const [current, setCurrent] = useState(0);
+  const { setMode } = useContext(HeaderContext);
 
-  render() {
-    const { current } = this.state;
+  useEffect(() => setMode(HeaderMode.small), [setMode]);
 
-    return (
-      <Page>
-        <LoginAsExistingUser
-          onNewUser={this.onNewUser}
-          visible={current === 0}
-        />
-        <LoginAsNewUser
-          onExistingUser={this.onExistingUser}
-          visible={current === 1}
-        />
-      </Page>
-    );
-  }
+  const onNewUser = useCallback(() => setCurrent(1), []);
+  const onExistingUser = useCallback(() => setCurrent(0), []);
 
-  onNewUser = () => this.setState({ current: 1 });
-  onExistingUser = () => this.setState({ current: 0 });
-}
+  return (
+    <Page>
+      <LoginAsExistingUser onNewUser={onNewUser} visible={current === 0} />
+      <LoginAsNewUser onExistingUser={onExistingUser} visible={current === 1} />
+    </Page>
+  );
+};
 
-export default Login;
+export default LoginPage;

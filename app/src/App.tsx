@@ -2,9 +2,9 @@ import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import Layout from "./pages/Layout";
-import Main from "./pages/Main";
-import Login from "./pages/Login";
-import Profile from "./pages/Profile";
+import MainPage from "./pages/MainPage";
+import LoginPage from "./pages/LoginPage";
+import ProfilePage from "./pages/ProfilePage";
 
 import Session from "./pages/UserContext";
 
@@ -15,13 +15,13 @@ function App() {
         <Router>
           <Switch>
             <Route path="/" exact>
-              <Main />
+              <MainPage />
             </Route>
             <Route path="/login" exact>
-              <Login />
+              <LoginPage />
             </Route>
             <Route path="/main" exact>
-              <Profile />
+              <ProfilePage />
             </Route>
           </Switch>
         </Router>

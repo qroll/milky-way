@@ -5,7 +5,6 @@ import {
   CenteredFlexColumn,
   CenteredFlexRow,
 } from "../components/containers/Flex";
-import Star from "../components/images/Star";
 import { Like, LikeService } from "../services/LikeService";
 import { TextField } from "../components/form";
 import { UserContext } from "./UserContext";
@@ -41,32 +40,7 @@ const Username = styled.span`
   margin-left: ${({ theme }) => theme.space[3]};
 `;
 
-const Header = styled(CenteredFlexRow)`
-  margin-top: ${({ theme }) => theme.space[3]};
-`;
-
-const Logo = styled(Star)`
-  fill: #fff;
-  height: 100px;
-  width: 100px;
-`;
-
-const Title = styled.div`
-  cursor: default;
-  font-family: ${({ theme }) => theme.font.fancy};
-  font-size: ${({ theme }) => theme.fontSizes[5]};
-`;
-
-const MiniHeader: React.FunctionComponent<{}> = () => {
-  return (
-    <Header>
-      <Logo />
-      <Title>things i like</Title>
-    </Header>
-  );
-};
-
-const Profile: React.FunctionComponent<{}> = (props) => {
+const ProfilePage: React.FunctionComponent<{}> = (props) => {
   const [likes, setLikes] = useState<Like[]>([]);
   const [input, setInput] = useState("");
 
@@ -82,7 +56,6 @@ const Profile: React.FunctionComponent<{}> = (props) => {
 
   return (
     <Page>
-      <MiniHeader />
       <ProfileBanner>
         <Avatar>R</Avatar>
         <Username>{userContext.user?.username}</Username>
@@ -101,4 +74,4 @@ const Profile: React.FunctionComponent<{}> = (props) => {
   );
 };
 
-export default Profile;
+export default ProfilePage;
