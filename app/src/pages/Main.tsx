@@ -20,7 +20,11 @@ const Header = styled(Star)`
 const Title = styled.div`
   cursor: default;
   font-family: ${({ theme }) => theme.font.fancy};
-  font-size: 2rem;
+  font-size: ${({ theme }) => theme.fontSizes[5]};
+`;
+
+const LoginButton = styled(Button)`
+  margin-top: ${({ theme }) => theme.space[3]};
 `;
 
 class Main extends React.Component {
@@ -29,9 +33,7 @@ class Main extends React.Component {
       <Page>
         <Header />
         <Title>things i like</Title>
-        <Button marginTop={5} to="/login">
-          log in
-        </Button>
+        <LoginButton to="/login">log in</LoginButton>
       </Page>
     );
   }

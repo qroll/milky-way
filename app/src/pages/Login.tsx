@@ -42,7 +42,11 @@ const Item = styled(CenteredFlexColumn).attrs({ as: "form" })`
   }
 `;
 
-const PageItem: React.FunctionComponent<{ visible: boolean }> = props => {
+const PageButton = styled(Button)`
+  margin-top: ${({ theme }) => theme.space[3]};
+`;
+
+const PageItem: React.FunctionComponent<{ visible: boolean }> = (props) => {
   return (
     <CSSTransition
       appear
@@ -58,7 +62,7 @@ const PageItem: React.FunctionComponent<{ visible: boolean }> = props => {
 const LoginAsExistingUser: React.FunctionComponent<{
   onNewUser: () => void;
   visible: boolean;
-}> = props => {
+}> = (props) => {
   const { onNewUser, visible } = props;
 
   const [username, setUsername] = useState("");
@@ -79,7 +83,7 @@ const LoginAsExistingUser: React.FunctionComponent<{
 
   const onSubmit = useCallback(() => {
     AuthService.login(username, password)
-      .then(user => {
+      .then((user) => {
         userContext.setUser(user);
         history.push("/main");
       })
@@ -103,12 +107,8 @@ const LoginAsExistingUser: React.FunctionComponent<{
         onChange={onPasswordChange}
         type="password"
       />
-      <Button marginTop={5} onClick={onSubmit}>
-        submit
-      </Button>
-      <Button marginTop={5} onClick={onNewUser}>
-        new user?
-      </Button>
+      <PageButton onClick={onSubmit}>submit</PageButton>
+      <PageButton onClick={onNewUser}>new user?</PageButton>
     </PageItem>
   );
 };
@@ -116,7 +116,7 @@ const LoginAsExistingUser: React.FunctionComponent<{
 const LoginAsNewUser: React.FunctionComponent<{
   onExistingUser: () => void;
   visible: boolean;
-}> = props => {
+}> = (props) => {
   const { onExistingUser, visible } = props;
 
   const [username, setUsername] = useState("");
@@ -166,19 +166,15 @@ const LoginAsNewUser: React.FunctionComponent<{
         type="password"
         disabled={!password}
       />
-      <Button marginTop={5} onClick={onSubmit}>
-        sign up
-      </Button>
-      <Button marginTop={5} onClick={onExistingUser}>
-        existing user?
-      </Button>
+      <PageButton onClick={onSubmit}>sign up</PageButton>
+      <PageButton onClick={onExistingUser}>existing user?</PageButton>
     </PageItem>
   );
 };
 
 class Login extends React.Component {
   state = {
-    current: 0
+    current: 0,
   };
 
   render() {

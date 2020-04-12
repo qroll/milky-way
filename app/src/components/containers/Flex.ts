@@ -1,7 +1,14 @@
 import styled from "styled-components";
-import { flexbox, layout, space } from "styled-system";
+import {
+  flexbox,
+  layout,
+  space,
+  LayoutProps,
+  FlexboxProps,
+  SpaceProps,
+} from "styled-system";
 
-export const FlexColumn = styled.div`
+export const FlexColumn = styled.div<LayoutProps | FlexboxProps | SpaceProps>`
   align-items: flex-start;
   display: flex;
   flex-direction: column;
@@ -11,7 +18,9 @@ export const FlexColumn = styled.div`
   ${space}
 `;
 
-export const CenteredFlexColumn = styled.div`
+export const CenteredFlexColumn = styled.div<
+  LayoutProps | FlexboxProps | SpaceProps
+>`
   align-items: center;
   display: flex;
   flex-direction: column;
@@ -21,7 +30,7 @@ export const CenteredFlexColumn = styled.div`
   ${space}
 `;
 
-export const FlexRow = styled.div`
+export const FlexRow = styled.div<LayoutProps | FlexboxProps | SpaceProps>`
   align-items: flex-start;
   display: flex;
   flex-direction: row;
@@ -31,7 +40,9 @@ export const FlexRow = styled.div`
   ${space}
 `;
 
-export const CenteredFlexRow = styled.div`
+export const CenteredFlexRow = styled.div<
+  LayoutProps | FlexboxProps | SpaceProps
+>`
   align-items: center;
   display: flex;
   flex-direction: row;

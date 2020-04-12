@@ -1,13 +1,13 @@
 import React, { useCallback } from "react";
 import styled from "styled-components";
-import { layout, space } from "styled-system";
+
 import { Modify } from "../../utils/utilityTypes";
 
 const StyledInput = styled.input`
   background-color: #fff;
   color: #000;
-  padding: 0.5rem;
-  margin-top: ${({ theme }) => theme.space[3]}px;
+  padding: ${({ theme }) => theme.space[3]};
+  margin-top: ${({ theme }) => theme.space[3]};
   transition: all 0.3s ease;
 
   &::selection {
@@ -23,9 +23,6 @@ const StyledInput = styled.input`
   &:disabled::placeholder {
     color: ${({ theme }) => theme.colors.gray[2]};
   }
-
-  ${layout}
-  ${space}
 `;
 
 export interface TextFieldProps
@@ -40,7 +37,7 @@ export interface TextFieldProps
     }
   > {}
 
-export const TextField: React.FunctionComponent<TextFieldProps> = props => {
+export const TextField: React.FunctionComponent<TextFieldProps> = (props) => {
   const { onChange, ...passthroughProps } = props;
 
   const handleOnChange = useCallback(

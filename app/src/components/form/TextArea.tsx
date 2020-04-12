@@ -1,14 +1,13 @@
 import React, { useCallback } from "react";
 import styled from "styled-components";
-import { layout, space } from "styled-system";
 
 import { Modify } from "../../utils/utilityTypes";
 
 const StyledInput = styled.textarea`
   background-color: #fff;
   color: #000;
-  padding: 0.5rem;
-  margin-top: ${({ theme }) => theme.space[3]}px;
+  padding: ${({ theme }) => theme.space[3]};
+  margin-top: ${({ theme }) => theme.space[3]};
   resize: none;
   transition: all 0.3s ease;
 
@@ -25,9 +24,6 @@ const StyledInput = styled.textarea`
   &:disabled::placeholder {
     color: ${({ theme }) => theme.colors.gray[2]};
   }
-
-  ${layout}
-  ${space}
 `;
 
 export interface TextAreaProps
@@ -42,7 +38,7 @@ export interface TextAreaProps
     }
   > {}
 
-export const TextArea: React.FunctionComponent<TextAreaProps> = props => {
+export const TextArea: React.FunctionComponent<TextAreaProps> = (props) => {
   const { onChange, ...passthroughProps } = props;
 
   const handleOnChange = useCallback(

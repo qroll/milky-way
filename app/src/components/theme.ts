@@ -8,12 +8,12 @@ export const theme = {
       "#999999",
       "#666666",
       "#333333",
-      "#000000"
-    ] as const
+      "#000000",
+    ] as const,
   },
   font: {
-    fancy: "Reenie Beanie"
+    fancy: "Reenie Beanie",
   },
-  fontSizes: [12, 14, 16, 20, 24, 32, 48] as const,
-  space: [0, 2, 4, 8, 16, 32] as const
+  fontSizes: ["0.75rem", "1rem", "1.25rem", "1.5rem", "2rem", "3rem"] as const,
+  space: ["0", "0.125rem", "0.25rem", "0.5rem", "1rem", "2rem"] as const,
 };

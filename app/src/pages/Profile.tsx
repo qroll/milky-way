@@ -3,34 +3,29 @@ import styled from "styled-components";
 
 import {
   CenteredFlexColumn,
-  CenteredFlexRow
+  CenteredFlexRow,
 } from "../components/containers/Flex";
+import Star from "../components/images/Star";
 import { Like, LikeService } from "../services/LikeService";
-import { TextArea } from "../components/form";
+import { TextField } from "../components/form";
 import { UserContext } from "./UserContext";
 
 const Page = styled(CenteredFlexColumn)`
   width: 100%;
 `;
 
-const Title = styled.div`
-  cursor: default;
-  font-family: ${({ theme }) => theme.font.fancy};
-  font-size: 2rem;
-  margin-top: ${({ theme }) => theme.space[5]}px;
+const List = styled.ol`
+  margin-top: ${({ theme }) => theme.space[5]};
 `;
 
-const List = styled.div`
-  margin-top: ${({ theme }) => theme.space[5]}px;
-`;
-
-const ListItem = styled.div`
-  margin-top: ${({ theme }) => theme.space[1]}px;
+const ListItem = styled.li`
+  list-style: decimal;
+  margin-top: ${({ theme }) => theme.space[1]};
 `;
 
 const ProfileBanner = styled(CenteredFlexRow)`
   width: 100%;
-  margin-top: ${({ theme }) => theme.space[5]}px;
+  margin-top: ${({ theme }) => theme.space[5]};
 `;
 
 const Avatar = styled(CenteredFlexRow)`
@@ -43,10 +38,35 @@ const Avatar = styled(CenteredFlexRow)`
 `;
 
 const Username = styled.span`
-  margin-left: ${({ theme }) => theme.space[3]}px;
+  margin-left: ${({ theme }) => theme.space[3]};
 `;
 
-const Profile: React.FunctionComponent<{}> = props => {
+const Header = styled(CenteredFlexRow)`
+  margin-top: ${({ theme }) => theme.space[3]};
+`;
+
+const Logo = styled(Star)`
+  fill: #fff;
+  height: 100px;
+  width: 100px;
+`;
+
+const Title = styled.div`
+  cursor: default;
+  font-family: ${({ theme }) => theme.font.fancy};
+  font-size: ${({ theme }) => theme.fontSizes[5]};
+`;
+
+const MiniHeader: React.FunctionComponent<{}> = () => {
+  return (
+    <Header>
+      <Logo />
+      <Title>things i like</Title>
+    </Header>
+  );
+};
+
+const Profile: React.FunctionComponent<{}> = (props) => {
   const [likes, setLikes] = useState<Like[]>([]);
   const [input, setInput] = useState("");
 
@@ -54,26 +74,26 @@ const Profile: React.FunctionComponent<{}> = props => {
 
   useEffect(() => {
     LikeService.getLikes()
-      .then(list => setLikes(list))
+      .then((list) => setLikes(list))
       .catch(() => {});
   }, []);
 
-  const onInputChange = useCallback(value => setInput(value), []);
+  const onInputChange = useCallback((value) => setInput(value), []);
 
   return (
     <Page>
-      <Title>things i like</Title>
+      <MiniHeader />
       <ProfileBanner>
         <Avatar>R</Avatar>
         <Username>{userContext.user?.username}</Username>
       </ProfileBanner>
-      <TextArea
+      <TextField
         placeholder="I like..."
         value={input}
         onChange={onInputChange}
       />
       <List>
-        {likes.map(like => (
+        {likes.map((like) => (
           <ListItem key={like.id}>{like.body}</ListItem>
         ))}
       </List>
